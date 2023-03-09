@@ -2,6 +2,7 @@
 #include <QtCore>
 #include <QDebug>
 
+
 double ch1 = 95.7;
 double ch2 = 99.0;
 double ch3 = 104.2;

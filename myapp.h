@@ -3,6 +3,7 @@
 #include <QtCore>
 #include <QDebug>
 
+
 class myapp : public QObject
 {
     Q_OBJECT

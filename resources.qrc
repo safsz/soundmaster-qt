@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../../../../../../Downloads/ringtone.mp3</file>
+        <file>../../../../../../Downloads/nokia.mp3</file>
+    </qresource>
+</RCC>

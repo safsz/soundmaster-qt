@@ -1,146 +1,181 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
+import QtMultimedia 6.4
 
 Window {
-    property string icon_lb: "file:///E:/radioicon/leftB.png";
-    property string icon_lo: "file:///E:/radioicon/leftO.png";
-    property string icon_rb: "file:///E:/radioicon/rightB.png";
-    property string icon_ro: "file:///E:/radioicon/rightO.png";
+    property string icon_lb: "file:///C:/Users/safiul alam/Downloads/leftB.png";
+    property string icon_lo: "file:///C:/Users/safiul alam/Downloads/leftO.png";
+    property string icon_rb: "file:///C:/Users/safiul alam/Downloads/rightB.png";
+    property string icon_ro: "file:///C:/Users/safiul alam/Downloads/rightO";
+
+
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
-    Column{
-        x: 200;
-        y: 200;
-        anchors.verticalCenterOffset: -150
-        anchors.horizontalCenterOffset: -150
-        anchors.centerIn: parent;
-    Rectangle {
+    title: qsTr("Radio")
 
-        width: 150
-        height: 30
-        Text {
-            id: txt_box
-            text: "95.7"
-            font.pointSize: 12
-            anchors.centerIn: parent
-        }
+    MediaPlayer {
+        id: player
+        source: "file:///C:/Users/safiul alam/Downloads/Message Tone.mp3"
 
-        border.color: "black"
-        border.width: 2
-//        anchors.verticalCenterOffset: -150
-//        anchors.horizontalCenterOffset: 0
-//        anchors.centerIn: parent
+
     }
-    Slider{
-        id: slider_1
-        x: 50
-        y: 350
-//        anchors.verticalCenterOffset: -300
-//        anchors.horizontalCenterOffset: -200
-//        anchors.centerIn: parent
-        from: 1
-        to: 150
-        value: txt_box.text
-        onMoved:{
-              //txt_box.text = slider_1.value;
-            if(slider_1.value>txt_box.text){
-                myapp.func_btn_inc();
-            } else {
-                myapp.func_btn_dec();
-            }
-        }
-    }
-    Row{
-
     Button{
-        id: btn_1
+
+        id: btn2;
         width: 80;
         height: 80;
-        background: Image
-        {
-            source: btn_1.pressed? icon_lo : icon_lb;
-        }
         onClicked:
         {
-            myapp.func_btn_dec()
+            player.play()
         }
-        //anchors.fill: parent;
     }
 
-
-    Button{
-        id: btn_2
-        width: 80;
-        height: 80;
-        background: Image
-        {
-            source: btn_2.pressed? icon_ro : icon_rb;
-        }
-        onClicked:
-        {
-            myapp.func_btn_inc()
-        }
-       // anchors.centerIn: parent;
-
-    }
-
-    }
-    }
     Column{
-        x: 50;
-        y: 80;
-        anchors.verticalCenterOffset: -150
-        anchors.horizontalCenterOffset: 100
-        anchors.centerIn: parent;
-        RadioButton{
-            checked: false
-            text: qsTr("Off")
-            font.pointSize: 12
-            onClicked:
-            {
-                myapp.func_btn_off()
+        spacing: 20
+        anchors.fill: parent
+        padding: 20
+
+        Rectangle {
+            width: parent.width
+            height: parent.height * 0.2
+            color: "#2196F3"
+            Text {
+                id: title_text
+                text: "Radio "
+                font.pointSize: 28
+                font.bold: true
+                color: "white"
+                anchors.centerIn: parent
             }
         }
-        RadioButton{
+
+        Row {
+            spacing: 20
+
+            Button{
+                id: btn_1
+                width: 80;
+                height: 80;
+                background: Image
+                {
+                    source: btn_1.pressed? icon_lo : icon_lb;
+                }
+                onClicked:
+                {
+                    myapp.func_btn_dec()
+                }
+            }
+
+            Column {
+                spacing: 20
+
+                Rectangle {
+                    width: 150
+                    height: 30
+                    Text {
+                        id: txt_box
+                        text: "95.7"
+                        font.pointSize: 24
+                        anchors.centerIn: parent
+                    }
+
+                    border.color: "black"
+                    border.width: 2
+                }
+
+                Slider{
+                    id: slider_1
+                    width: 250
+                    from: 1
+                    to: 150
+                    value: txt_box.text
+                    onMoved:{
+                          //txt_box.text = slider_1.value;
+                        if(slider_1.value>txt_box.text){
+                            myapp.func_btn_inc();
+                        } else {
+                            myapp.func_btn_dec();
+                        }
+                    }
+                }
+
+            }
+
+            Button{
+
+                id: btn_2
+                width: 80;
+                height: 80;
+                background: Image
+                {
+                    source: btn_2.pressed? icon_ro : icon_rb;
+                }
+                onClicked:
+                {
+                    myapp.func_btn_inc()
+                    player.play()
+                }
+            }
+        }
+
+        Column{
+            spacing: 20
+
+
+            RadioButton{
                 checked: true
                 text: qsTr("CH1")
-                font.pointSize: 12
+                font.pointSize: 20
                 onClicked:
                 {
                     myapp.func_btn_ch1()
                 }
-        }
-        RadioButton{
-                    checked: false
-                    text: qsTr("CH2")
-                    font.pointSize: 12
-                    onClicked: {
-                        myapp.func_btn_ch2()
-                    }
-        }
-        RadioButton{
-                    checked: false
-                    text: qsTr("CH3")
-                    font.pointSize: 12
-                    onClicked: {
-                        myapp.func_btn_ch3()
-                    }
-        }
-        Connections
-        {
-            target:myapp
-            ignoreUnknownSignals: true
-
-            function onSendMess(text_box_str)
-            {
-                txt_box.text = text_box_str;
             }
 
+            RadioButton{
+                checked: false
+                text: qsTr("CH2")
+                font.pointSize: 20
+                onClicked: {
+                    myapp.func_btn_ch2()
+                }
+            }
+
+            RadioButton{
+                checked: false
+                text: qsTr("CH3")
+                font.pointSize: 20
+                onClicked: {
+                    myapp.func_btn_ch3()
+                }
+            }
+
+            RadioButton{
+                checked: false
+                text: qsTr("Off")
+                font.pointSize: 20
+                onClicked:
+                {
+                    myapp.func_btn_off()
+                }
+            }
+
+            Connections
+            {
+                target:myapp
+                ignoreUnknownSignals: true
+
+                function onSendMess(text_box_str)
+                {
+                    txt_box.text = text_box_str;
+
+                }
+            }
         }
 
     }
+
 
 }
